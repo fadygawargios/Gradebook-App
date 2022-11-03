@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block main %}
+    <h1>Mes Éléves</h1>
+    <hr>
+
+
+
+
+    <button class="accordion">Class name</button>
+        <div class="panel">
+            <p>...
+            </p>
+        </div>
+        <button class="accordion">Class name</button>
+        <div class="panel">
+            <p>...</p>
+        </div>
+    <hr>
+    <table class="table" id="student-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Courriel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>Fady Gawargios</td>
+            <td>fady.gawargios@mon-avenir.ca</td>
+        </tbody>
+    </table>
+    <form><button type="button" onclick="new_row()">Ajouter</button></form>
+
+{% endblock %}

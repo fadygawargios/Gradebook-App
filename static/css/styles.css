@@ -1,0 +1,112 @@
+main
+{
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.nav-logo
+{
+    width: 75px;
+    height: auto;
+}
+
+.blue
+{
+    color: #0d2c6c;
+}
+
+.text-huge
+{
+    font-size: 100px;
+}
+
+.text-left
+{
+    display: inline-block;
+    text-align: left;
+}
+.create-section
+{
+    min-width: 650px;
+    padding: 15px;
+    background-color: white;
+}
+
+.create-page
+{
+    background-color: #E8E8E8;
+}
+
+.create-box
+{
+    margin: 15px;
+    margin-bottom: 60px;
+}
+
+.button-right
+{
+    float: right;
+}
+
+div.class-box {
+    width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+  }
+  
+  div.class-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 25px;
+
+  }
+
+  div.class-container {
+    padding: 7.5px;
+  }
+
+.accordion {
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+    transition: 0.4s;
+  }
+
+
+
+/* FIX INDENTATION */
+  .active, .accordion:hover {
+    background-color: #ccc;
+  }
+  
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+  
+  }
+  
+  .accordion:after {
+      content: '\02795'; /* Unicode character for "plus" sign (+) */
+      font-size: 13px;
+      color: #777;
+      float: right;
+      margin-left: 5px;
+      display: flex;
+    }
+  
+    .active:after {
+      content: "\2796"; /* Unicode character for "minus" sign (-) */
+      display: flex;
+    }
+

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Créer
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="text-center">
+        <div class="text-left create-section">
+            <h1>Créer votre class</h1>
+            <hr>
+            <form action="/create" method="post">
+                <ul>
+                    <li>
+                        <h4>Étape 1: Nommer votre class </h4>
+                        <input input autocomplete="off" autofocus class="create-box form-control w-auto" placeholder="EX: Génie Informatique" type="text">
+                    </li>
+                    
+                    <li>
+                        <h4>Étape 2: Ajouter vos Éléves </h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom Complet</th>
+                                    <th>Courriel Mon-Avenir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input input autocomplete="off" autofocus class=" form-control w-auto"  type="text">
+                                    </td>
+                                    <td>
+                                        <input input autocomplete="off" autofocus class=" form-control w-auto" type="text">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input id="new_row_button" class="btn btn-secondary btn-block" value="HEHE" type="button">
+                    </li>
+                    <li>
+                        <h4>Étape 3: Choissisez un couleur pour votre class</h4>
+                        <input input autocomplete="off" autofocus class=" create-box form-control" value="#FFFFFF" type="color">
+                    </li>
+                </ul>
+
+                <input class="btn btn-primary" type="submit" value="Sauvegarder">
+                <a class="btn btn-secondary" type="button" href="/">Fermer</a>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
