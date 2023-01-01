@@ -1,33 +1,26 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    
+  Cours
 {% endblock %}
 
 {% block main %}
-    <h1>Mes Classes</h1>
-    <hr>
-    <a href="/">
-        <div class="class-box">
-            <div class="class-header">
-                
-            </div>
-            <div class="class-container">
-                <p>ICS3U</p>
-                <p>Génie Informatique</p>
-            </div>
-        </div>
-    </a>
-
-
-    <div class="class-box">
-        <div class="class-header">
-            
-        </div>
+  <h1>Mes Cours</h1>
+  <hr>
+  <form action="/class" method="get">
+    {% for class in classes %}
+    <div class="class">
+      <div class="class-header" style="background-color: {{ class['class_colour'] }};">
+        <p class="class_code">
+          <input class="no_deco" type="submit" value="{{ class['class_code'] }}" name="code">
+        </p>
+      </div>
+      <div class="class-box">
         <div class="class-container">
-            <p>SNC</p>
-            <p>Science 10e</p>
+          <p>{{ class["class_name"] }}</p>
         </div>
+      </div>
     </div>
-
+  {% endfor %}
+</form>
 {% endblock %}

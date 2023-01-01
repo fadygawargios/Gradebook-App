@@ -41,8 +41,6 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///data.db")
 
-
-
 def login_required(function):
     @wraps(function)
     def decorated_function(*args, **kwargs):
@@ -62,32 +60,136 @@ def after_request(response):
     return response
 
 
-# Alert message
-message = ""
-
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-        name = session["name"]
-        return render_template("index.html", name=name)
+    if request.method == "GET":
+        # Store new teacher into database
+        if int(db.execute("SELECT COUNT(google_id) FROM users WHERE google_id = ?;", session["google_id"])[0]["COUNT(google_id)"]) == 0:
+            db.execute("INSERT INTO users VALUES (?, ?);", session["name"], session["google_id"])
+
+        # Get teacher's info
+        info = db.execute("SELECT * FROM users WHERE google_id = ?;", session["google_id"])
+        return render_template("index.html", name=info[0]["name"])
 
 
 @app.route("/classes", methods=["GET"])
 @login_required
 def classes():
+
     # Get classes from SQL db
-    return render_template("classes.html")
+    classes = db.execute("SELECT class_code, class_name, class_colour FROM classes WHERE teacher_id = ?", session["google_id"])
 
 
+    
+    return render_template("classes.html", classes=classes)
+
+
+@app.route("/class", methods=["GET", "POST"])
+@login_required
+def class_page():
+    if request.method == "POST":
+        code = request.args.get("code")
+
+        unit = request.form.get("unit")
+
+        if unit == "new":
+            unit = request.form.get("new_unit")
+    
+        name = request.form.get("task_name")
+        weight = request.form.get("weight")
+        description = request.form.get("description")
+        # Hidden input
+        code = request.form.get("code")
+
+        class_id = db.execute("SELECT rowID FROM classes WHERE teacher_id = ? AND class_code = ?", session["google_id"], code)[0]["rowid"]
+
+        db.execute("INSERT INTO tasks VALUES (?, ?, ?, ?, ?);", name, description, class_id, unit, weight)
+       
+        flash("Ajouter!")
+        return redirect(f"/class?code={code}")
+
+    else:
+        # Get tasks
+        code = request.args.get("code")
+        class_info = db.execute("SELECT rowID, * FROM classes WHERE teacher_id = ? AND class_code = ?;", session["google_id"], code)[0]
+    
+        # Get a list of all the units
+        units = db.execute("SELECT DISTINCT unit FROM tasks WHERE class_id = ?;", class_info["rowid"])
+
+        unit_list = []
+        
+        for unit in units:
+            unit_list.append(unit["unit"])
+
+
+        tasks_dict = {}
+
+        task_length = {}
+        
+        # Cycle through the list of units getting all tasks that match said unit from SQL
+        
+        for unit in unit_list:
+            tasks = db.execute("SELECT name, description, weight FROM tasks WHERE class_id = ? AND unit = ?;", class_info["rowid"], unit)
+            
+            # Count the number of tasks in each unit
+            total = len(tasks)
+            task_length[unit] = total
+
+            # Append those task to the part with the units...
+            tasks_dict[unit] = tasks
+
+
+        return render_template("class.html", class_info=class_info, tasks=tasks_dict, units=unit_list, length=task_length)
+
+
+@app.route("/task", methods=["GET", "POST"])
+@login_required
+def task():
+    if request.method == "POST":
+        return "not yet"
+    else:
+        name = request.args.get("task")
+        # Get class code
+        class_code = db.execute("SELECT class_code FROM classes WHERE rowID = (SELECT class_id FROM tasks WHERE name = ?);", name)[0]["class_code"]
+        
+        # Get students
+        students = []
+        student_names = db.execute("SELECT student_name FROM students WHERE class_code = ?;", class_code)
+        for student in student_names:
+            students.append(student["student_name"])
+        
+        #task_name = request.args.get("name")
+        return render_template("task.html", class_code=class_code, students=students)
 
 @app.route("/students", methods=["GET", "POST"])
 @login_required
 def students():
     if request.method == "POST":
-        return ("not implement yet")
+        return ("not implemented yet")
     else:
         # Get students from SQL db
-        return render_template("students.html")
+        classes = db.execute("SELECT class_code, class_name FROM classes WHERE teacher_id = ?", session["google_id"])
+
+
+        # Dictionary for students and class
+        student_class = {}
+        # https://thispointer.com/python-dictionary-with-multiple-values-per-key/
+
+        
+        for x in range(len(classes)):
+            class_name = classes[x]["class_name"]
+            
+            # Add student_emails after...
+            students = db.execute("SELECT student_name FROM students WHERE class_code = (SELECT class_code FROM classes WHERE teacher_id = ? AND class_name = ?);", session["google_id"], class_name)
+           
+            students_in_class = []
+            for student in students:
+               students_in_class.append(student["student_name"])
+
+            student_class[class_name] = students_in_class
+            
+        return render_template("students.html", classes=classes, student_class=student_class)
 
 
 
@@ -99,8 +201,36 @@ def welcome():
 @app.route("/create", methods=["GET", "POST"])
 @login_required
 def create():
-    if request.method == "POST":
-        return "working on it"
+
+    if request.method == "POST": 
+
+        class_code = request.form.get("class_code")
+        class_name = request.form.get("class_name")
+        class_colour = request.form.get("class_colour")
+
+        # TB: re-arranged
+        db.execute("INSERT INTO classes (class_name, class_colour, teacher_id, class_code) VALUES (?, ?, ?, ?);", class_name, class_colour, session["google_id"], class_code)
+
+        # Add the students to class-student table
+        student_name = []
+
+        # TB added as a feature
+        student_email = []
+        i = 1
+
+        while request.form.get("name_" + str(i)) != None:
+        
+            student_name.append(request.form.get("name_" + str(i)))    
+            i += 1
+        
+        for student in student_name:
+            db.execute("INSERT INTO students (class_code, student_name) VALUES (?, ?);", class_code, student)
+
+
+            # Alert the user that it has been created
+        flash("Créer!")
+        return redirect("/classes")
+    
     else:
         return render_template("create.html")
 
@@ -144,4 +274,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

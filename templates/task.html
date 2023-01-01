@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+  <form action="/task" method="get">
+    <div class="student_select">
+      <div class="back">
+        <h1>‹</h1><input class="no_deco" type="submit" id="back" name="name" value="">
+      </div>
+      <h3 class="name">Fady G</h3>
+      <div class="next">
+        <input class="no_deco" type="submit" id="next" name="name"><h1>›</h1>
+      </div>
+    </div>
+  </form>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <input id="CC_check" type="checkbox">
+          <label for="CC_check">
+            <h6>Connaissance et Compréhension</h6>
+          </label>
+        </td>
+        <td>
+          <input id="MA_check" type="checkbox">
+          <label for="MA_check">
+            <h6>Mise en Application</h6>
+          </label>
+        </td>
+        <td>
+          <input id="HP_check" type="checkbox">
+          <label for="HP_check">
+            <h6>Habilités de la pensées</h6>
+          </label>
+        </td>
+        <td>
+          <input id="C_check" type="checkbox">
+          <label for="C_check">
+            <h6>Communication</h6>
+          </label>
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td>
+          <input name="CC" id="CC" autocomplete="off" autofocus class="create-box form-control" type="number">
+        </td>
+        <td>
+          <input name="MA" id="MA" autocomplete="off" autofocus class="create-box form-control" type="number">
+        </td>
+        <td>
+          <input name="HP" id="HP" autocomplete="off" autofocus class="create-box form-control" type="number">
+        </td>
+        <td>
+          <input name="C" id="C" autocomplete="off" autofocus class="create-box form-control" type="number">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>Note:</h4>
+  <p id="grade"></p>
+
+  {% for student in students %}
+    <input class="student_name" type="hidden" value="{{ student }}">
+  {% endfor %}
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='script/task.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -1,51 +1,112 @@
-main
-{
+/* FIX ALL OF CSS */
+
+body {
+  overflow-x: hidden;
+}
+
+main {
     margin-right: 50px;
     margin-left: 50px;
 }
 
-.nav-logo
-{
-    width: 75px;
-    height: auto;
+.nav-logo {
+  width: 75px;
+  height: auto;
 }
 
-.blue
-{
-    color: #0d2c6c;
+.blue {
+  color: #0d2c6c;
 }
 
-.text-huge
-{
-    font-size: 100px;
+.text-huge {
+  font-size: 75px;
 }
 
-.text-left
-{
-    display: inline-block;
-    text-align: left;
-}
-.create-section
-{
-    min-width: 650px;
-    padding: 15px;
-    background-color: white;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.create-page
-{
-    background-color: #E8E8E8;
+img {
+  max-width: 100%
 }
 
-.create-box
-{
-    margin: 15px;
-    margin-bottom: 60px;
+.image {
+  flex-basis: 70%;
+  order: 2;
 }
 
-.button-right
-{
+.text {
+  padding-left: 20px;
+}
+
+.column {
+  padding-right: 8%;
+  padding-left: 8%;
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.create-section {
+  min-width: 650px;
+  padding: 15px;
+  background-color: white;
+}
+
+.create-page {
+  background-color: #E8E8E8;
+}
+
+.create-box {
+  margin: 15px;
+  width: 30%;
+  display: inline-block;
+}
+
+.center {
+  align-items: center;
+}
+
+.left {
+  align-items: left;
+}
+
+.button-right {
     float: right;
+}
+
+.class {
+  display: inline-block;
+}
+
+.class_code {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+  height: 100%;
+  vertical-align: middle;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.no_deco {
+  background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 
 div.class-box {
@@ -53,60 +114,88 @@ div.class-box {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
     display: inline-block;
-    margin: 10px;
+    margin-bottom: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
+
   }
   
   div.class-header {
-    background-color: #4CAF50;
     color: white;
-    padding: 25px;
-
+    height: 50px;
+    width: 250px;
+    margin-left: 25px;
+    margin-right: 25px;
   }
 
   div.class-container {
     padding: 7.5px;
   }
 
-.accordion {
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 20px;
-    transition: 0.4s;
-  }
+.student_number {
+  vertical-align: middle;
+  font-size: 19px;
+  font-weight: 550;
+  width: 15px;
+}
 
+.class_container {
+  display: flex;
+}
 
+.class_title {
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+}
 
-/* FIX INDENTATION */
-  .active, .accordion:hover {
-    background-color: #ccc;
-  }
-  
-  .panel {
-    padding: 0 18px;
-    display: none;
-    background-color: white;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-  
-  }
-  
-  .accordion:after {
-      content: '\02795'; /* Unicode character for "plus" sign (+) */
-      font-size: 13px;
-      color: #777;
-      float: right;
-      margin-left: 5px;
-      display: flex;
-    }
-  
-    .active:after {
-      content: "\2796"; /* Unicode character for "minus" sign (-) */
-      display: flex;
-    }
+.class_buttons {
+  padding-left: 48%;
+  height: 80%;
+  float:right;
+  align-items: right;
+  padding-right: 10px;
+  display: flex;
+}
 
+.tasks {
+  text-align: left;
+  vertical-align: top;
+
+}
+
+.unit-name {
+  font-weight: bold;
+  font-size: 1.3em;
+  vertical-align: top;
+}
+
+.student_select {
+  display: flex;
+  justify-content: space-between;
+}
+
+.back {
+  display: flex;
+  font-size: small;
+  float: left;
+}
+
+.next {
+  display: flex;
+  font-size: small;
+  float: right;
+}
+
+.name {
+  text-align: center;
+}
+
+.task_box {
+  width: 350px;
+}
+
+.new_task {
+  margin-top: 25px;
+  margin-bottom: 30px;
+}

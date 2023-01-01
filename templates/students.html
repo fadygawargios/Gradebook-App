@@ -1,38 +1,51 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    
+  Élèves
 {% endblock %}
 
 {% block main %}
-    <h1>Mes Éléves</h1>
-    <hr>
-
-
-
-
-    <button class="accordion">Class name</button>
-        <div class="panel">
-            <p>...
-            </p>
-        </div>
-        <button class="accordion">Class name</button>
-        <div class="panel">
-            <p>...</p>
-        </div>
-    <hr>
-    <table class="table" id="student-table">
-        <thead>
+  <h1>Mes Élèves</h1>
+  <hr>
+  
+  {% for class in classes %}
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header">
+        <a class="btn" data-bs-toggle="collapse" href="#collapse_{{ class["class_code"] }}">
+          {{ class["class_code"] }} : {{ class["class_name"] }}
+        </a>
+      </div>
+      <div id="collapse_{{ class["class_code"] }}" class="collapse show" data-bs-parent="#accordion">
+      <div class="card-body">
+        <table class="table" id="student-table">
+          <thead>
             <tr>
-                <th>Nom</th>
-                <th>Courriel</th>
+              <th style="width: 10px;"><input id="main_checkbox" type="checkbox"></th>
+              <th>Nom</th>
+              <th>Courriel</th>
             </tr>
-        </thead>
-        <tbody>
-            <td>Fady Gawargios</td>
-            <td>fady.gawargios@mon-avenir.ca</td>
-        </tbody>
-    </table>
-    <form><button type="button" onclick="new_row()">Ajouter</button></form>
+          </thead>
+          <tbody>
 
+            {% for student in student_class[class["class_name"]] %}
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>{{ student }}</td>
+              <td>fady.gawargios@mon-avenir.ca</td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+        <button type="button">Ajouter</button>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='script/students.js') }}" type="text/javascript"></script>
 {% endblock %}
