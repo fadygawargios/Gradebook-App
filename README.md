@@ -8,4 +8,6 @@ All data is stored in a SQL database called "data.db" consisting of five tables:
 
 I truly hope to continue using the extraordinary skills that I have learned throughout this course to not only finish this project in the new year, but to work on many more in the pursuit of my newfound passion in CS! I would like to give one big thank you to everyone who has made this possible, you have made all the difference, and I wish you all the best!
 
+I really enjoyed taking CS50. It was a challenging course, but the material was presented in a way that was easy to understand and the staff was always available to help. I appreciated the variety of assignments and projects, as they allowed me to apply the concepts I was learning in a practical way. The online community was also a great resource, as I was able to connect with other students and get help with any questions or problems I had. Overall, I feel like I learned a lot from CS50 and I'm excited to continue learning more about computer science in the future.
+
 ### This Was CS50. 
