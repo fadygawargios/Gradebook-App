@@ -1,4 +1,4 @@
-# Gestionnaire de Note
+# Gradebook App/Gestionnaire de Note
 #### Video Demo:  https://youtu.be/TnMw7aPmSLs
 #### Description:
 
